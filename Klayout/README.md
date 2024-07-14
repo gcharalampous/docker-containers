@@ -37,4 +37,4 @@ Scripts to build a Docker image for Klayout and copy binaries from the container
 - You can customize the Dockerfile for building on different Linux distributions.
 - To add Klayout to your PATH, you can create a symbolic link:
   ```bash
-  sudo ln -s /opt/klayout-$version/klayout /usr/local/bin/klayout
+  ln -s /opt/klayout-$version .local/bin/klayout
