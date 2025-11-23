@@ -1,5 +1,5 @@
 # Use an official Fedora as a parent image
-FROM fedora:42 as builder
+FROM fedora:43 as builder
 
 # Define build-time arguments
 ARG KLAYOUT_VERSION
