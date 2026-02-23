@@ -1,8 +1,12 @@
 #!/bin/bash
 
-# Ask the user for input with a default value
-read -p "Enter the Klayout version (i.e. 0.29.0) [default: 0.29.0]: " klayout_v
-klayout_v=${klayout_v:-0.29.0}  # Use default if no input is provided
+# Fetch the latest Klayout version from GitHub
+latest=$(curl -s https://api.github.com/repos/KLayout/klayout/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//')
+
+# Ask the user for input with the latest version as default
+echo "Latest Klayout version: $latest (press Enter to use this version)"
+read -p "Enter the Klayout version: " klayout_v
+klayout_v=${klayout_v:-$latest}
 
 # Confirm the version to be used
 echo "Using Klayout version: $klayout_v"
@@ -40,5 +44,7 @@ fi
 
 echo "Binary copied successfully."
 
-# Cleanup will be handled by the trap command
-
+# Only remove the image if copy succeeded
+echo "Removing the Docker image..."
+docker rmi klayout:$KLAYOUT_VERSION >/dev/null 2>&1
+echo "Image removed."
